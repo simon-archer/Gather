@@ -18,7 +18,7 @@ export default function UnifiedIsland() {
 
   // Modify the setFinalResponseText function to also set the textId
   const handleTextGenerated = (text, id) => {
-    setFinalResponseText(text);
+    setFinalResponseText({ choices: [{ message: { function_call: { arguments: text } } }] });
     setTextId(id);
   };
 
@@ -39,7 +39,7 @@ export default function UnifiedIsland() {
 
   return h("div", { class: tw`flex flex-row min-h-screen` }, [
     h("div", {
-      class: tw`relative ${isCollapsed ? 'sm:w-0 w-0 md:w-1/2 lg:w-1/3' : 'w-full'} flex flex-col items-start h-screen overflow-auto border-r border-gray-200 z-10`
+      class: tw`relative ${isCollapsed ? 'sm:w-0 w-0 md:w-1/2 lg:w-1/3' : 'w-full'} flex flex-col items-start h-screen overflow-auto border-r border-gray-200`
     }, [
       h(History, { 
         isCollapsed: isCollapsed, 
@@ -59,14 +59,14 @@ export default function UnifiedIsland() {
           class: tw`${isCollapsed ? ' shadow-lg transform rotate-180 max-w-[32px] max-h-[32px]' : 'max-w-[32px] max-h-[32px]'}`
       }))
     ]),
-    !selectedItem && finalResponseText && isCollapsed && h("button", { 
-      onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(false); }, // Set showSubjectCard to false when button is clicked
-      class: tw`fixed bottom-0 left-1/2 transform -translate-x-1/2 text-3xl mb-4 bg-[#38A1FF] hover:bg-[#318BDC] text-white font-semibold pt-2 pb-2 pl-4 pr-4 rounded-full shadow-lg`,
+    isCollapsed && h("button", { 
+      onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); },
+      class: tw`fixed z-10 bottom-0 left-1/2 transform -translate-x-1/2 text-3xl mb-4 bg-[#38A1FF] hover:bg-[#318BDC] text-white font-semibold pt-2 pb-2 pl-4 pr-4 rounded-full shadow-lg`,
     }, "+"),
     isCollapsed && h("div", {
       class: tw`flex flex-col items-center justify-center z-0 w-full p-4`
     }, [
-      !selectedItem && !finalResponseText && h(TextField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, handleGenerateContent }),
+      !selectedItem && (!finalResponseText || finalResponseText === "") && h(TextField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, handleGenerateContent }),
       showSubjectCard && finalResponseText && h(SubjectCard, { message: selectedItem ? selectedItem : finalResponseText, class: tw`w-auto max-w-xl`}),
       selectedItem && h('div', {}, ''),
       !selectedItem && h(AudioPlayer, { textToConvert: finalResponseText, textId: textId, setIsLoading }),
