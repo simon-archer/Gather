@@ -20,7 +20,7 @@ export default function TextField({ setFinalResponseText, isLoading, setIsLoadin
   };
 
   return h(
-    "div", { class: tw`flex flex-col items-center justify-center` }, [
+    "div", { class: tw`flex flex-col sm:items-center items-start justify-center` }, [
       isLoading ? h("div", {}, "Loading...") : h("form", { onSubmit: handleFormSubmit, class: tw`w-full` }, [
         h("textarea", {
           name: "userInput",

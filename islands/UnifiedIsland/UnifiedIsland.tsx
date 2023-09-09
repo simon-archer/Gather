@@ -24,7 +24,7 @@ export default function UnifiedIsland() {
 
   return h("div", { class: tw`flex flex-row min-h-screen` }, [
     h("div", {
-      class: tw`relative transition-all duration-300 ${isCollapsed ? 'w-0' : 'w-1/4'} flex flex-col items-start h-screen overflow-auto border-r border-gray-200`
+      class: tw`relative transition-all duration-300 ${isCollapsed ? 'sm:w-0 w-full' : 'sm:w-1/4 w-full'} flex flex-col items-start h-screen overflow-auto border-r border-gray-200`
     }, [
       h(History, { isCollapsed: isCollapsed, setIsCollapsed: setIsCollapsed, setSelectedItem: setSelectedItem })
     ]),
