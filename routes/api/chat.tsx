@@ -1,5 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { OpenAI } from "https://deno.land/x/openai@1.4.2/mod.ts";
+import { insertContent } from "../../utils/insertContent.ts";
 import { supabase } from "../../lib/supabase.ts";
 
 const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY")!);
@@ -13,6 +14,19 @@ export const handler: Handlers<Data> = {
   async POST(req, ctx) {
     const formData = new URLSearchParams(await req.text());
     const userInput = formData.get("userInput") || "";
+
+    // Inside your POST handler
+    try {
+      await insertContent({
+        title: title,
+        keywords: keywordsJson,
+        user_input: userInput,
+        full_gpt_response: JSON.stringify(response)
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error
+    }
 
     const requestPayload = ({
       model: "gpt-3.5-turbo",
@@ -97,6 +111,19 @@ export const handler: Handlers<Data> = {
         status: 500,
         headers: { "Content-Type": "application/json" },
       });
+    }
+
+    // Inside your POST handler
+    try {
+      await insertContent({
+        title: title,
+        keywords: keywordsJson,
+        user_input: userInput,
+        full_gpt_response: JSON.stringify(response)
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      // Handle error
     }
 
     return new Response(JSON.stringify({ message: gptResponse }), {

@@ -86,9 +86,19 @@
                 items.map(item => {
                   const fullGptResponse = item.full_gpt_response ? JSON.parse(item.full_gpt_response) : {};
                   const content = fullGptResponse.choices ? fullGptResponse.choices[0].message.function_call.arguments : {};
+                  if (content.keywords && typeof content.keywords === 'string') {
+                    try {
+                      content.keywords = JSON.parse(content.keywords);
+                    } catch (error) {
+                      console.error('Error parsing keywords:', error);
+                    }
+                  }
                   return h("div", {
                     class: tw`w-full mb-4 mt-4 border border-gray-300 p-2 rounded`,
-                    onClick: () => setSelectedItem(item)
+                    onClick: () => {
+                      setSelectedItem(JSON.parse(item.full_gpt_response)),
+                      setIsCollapsed(true)
+                    }
                   }, [
                     h("p", { class: tw`text-sm text-gray-500` }),
                     h("p", { class: tw`font-bold truncate` }, item.title),

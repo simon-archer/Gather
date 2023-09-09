@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
 import { tw } from "twind";
 import TextField from "./TextField.ts";
 import AudioPlayer from "./AudioPlayer.ts"
@@ -33,6 +33,10 @@ export default function UnifiedIsland() {
     }
   };
 
+  useEffect(() => {
+    console.log(selectedItem);
+  }, [selectedItem]);
+
   return h("div", { class: tw`flex flex-row min-h-screen` }, [
     h("div", {
       class: tw`relative ${isCollapsed ? 'sm:w-0 w-0 md:w-1/2 lg:w-1/3' : 'w-full'} flex flex-col items-start h-screen overflow-auto border-r border-gray-200 z-10`
@@ -63,9 +67,10 @@ export default function UnifiedIsland() {
       class: tw`flex flex-col items-center justify-center z-0 w-full p-4`
     }, [
       !selectedItem && !finalResponseText && h(TextField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, handleGenerateContent }),
-      showSubjectCard && finalResponseText && h(SubjectCard, { message: finalResponseText, class: tw`w-auto max-w-xl`}),
-      selectedItem && h('div', {}, 'Render your selected item here'), // Add this line
+      showSubjectCard && finalResponseText && h(SubjectCard, { message: selectedItem ? selectedItem : finalResponseText, class: tw`w-auto max-w-xl`}),
+      selectedItem && h('div', {}, ''),
       !selectedItem && h(AudioPlayer, { textToConvert: finalResponseText, textId: textId, setIsLoading }),
+      selectedItem && h(SubjectCard, { message: selectedItem, class: tw`w-auto max-w-xl`}),
     ]),
   ])
 };

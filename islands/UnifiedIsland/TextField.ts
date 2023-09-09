@@ -1,7 +1,6 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
 import { tw } from "twind";
-import { supabase } from "../../lib/supabase.ts";
 
 export default function TextField({ setFinalResponseText, isLoading, setIsLoading, handleGenerateContent }) {
   const [userInput, setUserInput] = useState("");
@@ -23,21 +22,6 @@ export default function TextField({ setFinalResponseText, isLoading, setIsLoadin
       setTimeout(() => setError(null), 5000);
     } else {
       setFinalResponseText(responseData.message);
-      // Insert new row into 'content' table
-      await supabase
-      .from('content')
-      .insert([{
-        title: responseData.title,
-        keywords: JSON.stringify(responseData.keywords),
-        user_input: userInput,
-        full_gpt_response: JSON.stringify(responseData)
-      }])
-      .then(response => {
-        console.log("Insertion Successful:", response);
-      })
-      .catch(error => {
-        console.error("Supabase Insertion Error:", error);
-      });
       setError(null);
     }
     setIsLoading(false);

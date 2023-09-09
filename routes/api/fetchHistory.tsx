@@ -1,4 +1,3 @@
-// api/fetchHistory.tsx
 import { supabase } from "../../lib/supabase.ts";
 
 export const handler = async (req: Request) => {
@@ -16,13 +15,7 @@ export const handler = async (req: Request) => {
       .range(start, end);
 
     if (error) {
-      console.error('Error fetching history:', error);
-      return new Response(JSON.stringify({ error: 'Failed to fetch history' }), {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
+      throw error;
     }
 
     return new Response(JSON.stringify({ data }), {
