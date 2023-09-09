@@ -11,6 +11,7 @@ export default {
       green: colors.green,
       white: colors.white,
       yellow: colors.yellow,
+      red: colors.red,
       transparent: "transparent",
     },
   },

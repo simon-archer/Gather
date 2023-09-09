@@ -1,3 +1,4 @@
+// api/fetchHistory.tsx
 import { supabase } from "../../lib/supabase.ts";
 
 export const handler = async (req: Request) => {
@@ -11,7 +12,7 @@ export const handler = async (req: Request) => {
     const { data, error } = await supabase
       .from('content')
       .select('*, full_gpt_response')
-      .order('created_at', { ascending: false }) // assuming 'created_at' is a timestamp column
+      .order('created_at', { ascending: false })
       .range(start, end);
 
     if (error) {

@@ -9,7 +9,6 @@ interface Data {
   userInput: string;
 }
 
-
 export const handler: Handlers<Data> = {
   async POST(req, ctx) {
     const formData = new URLSearchParams(await req.text());
@@ -21,7 +20,7 @@ export const handler: Handlers<Data> = {
         {
           "role": "system",
           "content":
-            "I'm a personalized tutor that makes learning easy and fun ",
+            "I'm a personalized tutor that makes learning easy and fun. I promise to guide you through your learning journey with careful consideration for where you're starting from. No fancy jargon or overwhelming details right off the bat. We'll focus on the essentials first, laying a solid foundation you can build on. Think of it like a puzzle; we'll start with the corner pieces and work our way in. And it won't be a dull list of facts; I'll provide context and show you how each piece fits into the larger picture. That way, you can easily add more complex ideas to your understanding as you go. We'll weave this all into a meaningful narrative that helps you not only learn but also appreciate the interconnectedness of the knowledge you're gaining.",
         },
         { "role": "user", "content": "Do not repeat instructions in the response or provide a introduction for each topic. User input: " + userInput },
       ],
@@ -60,10 +59,9 @@ export const handler: Handlers<Data> = {
 
 
     const response = await openAI.createChatCompletion(requestPayload);
-    console.log(response)
+    console.log("GPT-3 response:", response);
 
     const functionCall = response.choices[0]?.message?.function_call;
-
     if (!functionCall) {
       return new Response(JSON.stringify({ error: "No function call in response" }), {
         status: 500,
@@ -71,12 +69,37 @@ export const handler: Handlers<Data> = {
       });
     }
 
-    const message = functionCall.arguments || "";
+    const gptResponse = functionCall.arguments || "";
 
-    // Store the entire JSON response in the content table in Supabase
-    await supabase.from('content').insert([{ content: JSON.stringify(response) }]);
+    // Check if gptResponse is a stringified JSON object
+    let parsedResponse;
+    try {
+      parsedResponse = JSON.parse(gptResponse);
+      console.log("Parsed Response:", parsedResponse);
+    } catch (e) {
+      console.error("Failed to parse GPT-3 response:", e);
+      return new Response(JSON.stringify({ error: "Invalid GPT-3 response" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
-    return new Response(JSON.stringify({ message }), {
+    // Extract fields from parsed GPT-3 response
+    const { title, explanation, keywords } = parsedResponse;
+
+    // Check if keywords is a JSON object
+    let keywordsJson;
+    if (typeof keywords === "object" && keywords !== null) {
+      keywordsJson = JSON.stringify(keywords);
+    } else {
+      console.error("Keywords is not a JSON object:", keywords);
+      return new Response(JSON.stringify({ error: "Invalid keywords data" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    return new Response(JSON.stringify({ message: gptResponse }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

@@ -142,10 +142,6 @@ html {
   100% { transform: rotate(360deg); }
 }
 
-h1, h2 {
-  font-family: 'Cabinet Grotesk', sans-serif;
-}
-
 .history-scrollbar::-webkit-scrollbar {
   display: none;
 }

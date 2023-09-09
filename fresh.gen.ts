@@ -13,10 +13,9 @@ import * as $7 from "./routes/history.ts";
 import * as $8 from "./routes/index.tsx";
 import * as $$0 from "./islands/UnifiedIsland/AudioPlayer.ts";
 import * as $$1 from "./islands/UnifiedIsland/History.ts";
-import * as $$2 from "./islands/UnifiedIsland/SelectedItem.ts";
-import * as $$3 from "./islands/UnifiedIsland/SubjectCard.ts";
-import * as $$4 from "./islands/UnifiedIsland/TextField.ts";
-import * as $$5 from "./islands/UnifiedIsland/UnifiedIsland.tsx";
+import * as $$2 from "./islands/UnifiedIsland/SubjectCard.ts";
+import * as $$3 from "./islands/UnifiedIsland/TextField.ts";
+import * as $$4 from "./islands/UnifiedIsland/UnifiedIsland.tsx";
 
 const manifest = {
   routes: {
@@ -33,10 +32,9 @@ const manifest = {
   islands: {
     "./islands/UnifiedIsland/AudioPlayer.ts": $$0,
     "./islands/UnifiedIsland/History.ts": $$1,
-    "./islands/UnifiedIsland/SelectedItem.ts": $$2,
-    "./islands/UnifiedIsland/SubjectCard.ts": $$3,
-    "./islands/UnifiedIsland/TextField.ts": $$4,
-    "./islands/UnifiedIsland/UnifiedIsland.tsx": $$5,
+    "./islands/UnifiedIsland/SubjectCard.ts": $$2,
+    "./islands/UnifiedIsland/TextField.ts": $$3,
+    "./islands/UnifiedIsland/UnifiedIsland.tsx": $$4,
   },
   baseUrl: import.meta.url,
 };
