@@ -5,82 +5,80 @@ import { supabase } from "../../lib/supabase.ts";
 const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY")!);
 
 interface Data {
-  generatedText: string;
+  gptResponse: string;
   userInput: string;
 }
 
-function getFirstFiveWords(text: string) {
-  return text.split(' ').slice(0, 5).join(' ');
-}
-
-function generateRecord(userInput: string, text: string) {
-  return {
-    text: text,
-    title: userInput,
-    created_at: new Date().toISOString(),
-  };
-}
 
 export const handler: Handlers<Data> = {
   async POST(req, ctx) {
     const formData = new URLSearchParams(await req.text());
     const userInput = formData.get("userInput") || "";
 
-    const requestPayload = {
+    const requestPayload = ({
       model: "gpt-3.5-turbo",
       messages: [
         {
           "role": "system",
           "content":
-            "Only reply in Markdown. You are a highly informed person, but you keep it short. You are pragmatic and logical. Dont use any numbered lists or other written structures in your texts. Speak in a captivating way. Avoid any descriptors such as [cough]",
+            "I'm a personalized tutor that makes learning easy and fun ",
         },
-        { "role": "user", "content": userInput },
+        { "role": "user", "content": "Do not repeat instructions in the response or provide a introduction for each topic. User input: " + userInput },
       ],
-    };
-
-    let combinedText = "";
-
-    const body = new ReadableStream({
-      async start(controller) {
-        await openAI.createChatCompletionStream(
-          requestPayload,
-          (chunk: any) => {
-            const message = chunk.choices[0]?.delta?.content || "";
-            combinedText += message;
-
-            // Stream each chunk wrapped in a JSON structure
-            const chunkData = { type: "content", data: message };
-            controller.enqueue(
-              new TextEncoder().encode(JSON.stringify(chunkData) + "\n"),
-            ); // newline for easier parsing
-          },
-        );
-
-        // Insert into Supabase after all chunks are processed
-        const { data, error } = await supabase
-          .from("text_files")
-          .insert([generateRecord(userInput, combinedText)])
-          .select("id");
-
-        if (error) {
-          console.error("Error inserting data into Supabase:", error);
+      functions: [
+        {
+          name: 'generateEducationalContent',
+          description: 'Answer in one paragraph. Remember these things when answering: Prior Knowledge Gap: Understand that the learner is starting from scratch, and therefore won`t have the vocabulary or conceptual background to understand specialized jargon or complex ideas immediately. Cognitive Load: Try not to overwhelm the learner with too much information at once. Focus on essential elements that will provide a solid foundation. Building Blocks: Recognize that a schema should provide the building blocks of a subject in a way that allows for later complexity. It should be both extensible and flexible. Contextualization: Schemas are more effective if they`re contextualized. A good schema is not just a set of isolated facts but also includes an understanding of how and why these facts are relevant or interconnected. Reply in a spoken manner and dont use any numbered lists or other written structures in your texts. Avoid any descriptors such as [cough]. Always reply in the language of the user input.',
+          parameters: {
+            type: 'object',
+            properties: {
+              title: { 
+                type: 'string',
+                description: 'This is the title of the topic.' 
+              },
+              explanation: { 
+                type: 'string',
+                description: 'This explanation of the topic should always be in the same language of the user input.' 
+              },
+              keywords: {
+                type: 'object',
+                description: 'These 3 keywords should be very niche to the topic. Each keyword should be capitalized. Always in the language of the user input.' ,
+                properties: {
+                  keyword_1: { type: 'string' },
+                  keyword_2: { type: 'string' },
+                  keyword_3: { type: 'string' },
+                },
+                required: ['keyword_1', 'keyword_2', 'keyword_3']
+              }
+            },
+            required: ['title', 'explanation', 'keywords']
+          }
         }
-
-        const text_id = data[0].id;
-
-        // Stream the text_id as well
-        const idData = { type: "meta", text_id: text_id };
-        controller.enqueue(
-          new TextEncoder().encode(JSON.stringify(idData) + "\n"),
-        );
-
-        controller.close();
-      },
+      ],
+      function_call: 'auto',
     });
 
-    return new Response(body, {
+
+    const response = await openAI.createChatCompletion(requestPayload);
+    console.log(response)
+
+    const functionCall = response.choices[0]?.message?.function_call;
+
+    if (!functionCall) {
+      return new Response(JSON.stringify({ error: "No function call in response" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const message = functionCall.arguments || "";
+
+    // Store the entire JSON response in the content table in Supabase
+    await supabase.from('content').insert([{ content: JSON.stringify(response) }]);
+
+    return new Response(JSON.stringify({ message }), {
       status: 200,
-      headers: { "Content-Type": "application/x-ndjson" }, // using ndjson (newline delimited JSON)
+      headers: { "Content-Type": "application/json" },
     });
-  },
+  }
 };

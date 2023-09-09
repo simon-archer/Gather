@@ -3,9 +3,9 @@ import { useState } from "preact/hooks";
 import { tw } from "twind";
 import TextField from "./TextField.ts";
 import AudioPlayer from "./AudioPlayer.ts"
-import Logo from "../../static/Logo.tsx";
 import History from "./History.ts";
 import SelectedItem from "./SelectedItem.ts";
+import SubjectCard from "./SubjectCard.ts";
 
 
 export default function UnifiedIsland() {
@@ -42,9 +42,8 @@ export default function UnifiedIsland() {
       h("div", {
         class: tw`transition-all duration-300 ease-in-out ${isCollapsed ? 'w-11/12' : 'w-2/3'} flex flex-col items-center justify-center`
       }, [
-        
-        !selectedItem && h(Logo, { class: tw`mt-8` }, { textToConvert: finalResponseText, textId: textId, setIsLoading }),
-        h(selectedItem ? SelectedItem : TextField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, ...(selectedItem && { item: selectedItem }) }),
+        !selectedItem && h(selectedItem ? SelectedItem : TextField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, ...(selectedItem && { item: selectedItem }) }),
+        finalResponseText && h(SubjectCard, { message: finalResponseText }),
         selectedItem && h( "button", {
           onClick: () => setSelectedItem(null),
           class: tw`block bg-green-500 text-white font-semibold pr-4 pl-4 p-2 rounded-full mt-4 mx-auto shadow-lg`,

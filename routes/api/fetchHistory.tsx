@@ -9,8 +9,8 @@ export const handler = async (req: Request) => {
 
   try {
     const { data, error } = await supabase
-      .from('text_files')
-      .select('*')
+      .from('content')
+      .select('*, full_gpt_response')
       .order('created_at', { ascending: false }) // assuming 'created_at' is a timestamp column
       .range(start, end);
 

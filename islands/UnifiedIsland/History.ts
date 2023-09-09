@@ -83,7 +83,7 @@
                   }, [
                     h("p", { class: tw`text-sm text-gray-500 overflow-auto`} ),
                     h("p", { class: tw`font-bold truncate overflow-auto` }, item.title),
-                    h("p", { class: tw`truncate overflow-auto` }, item.text),
+                    h("p", { class: tw`truncate overflow-auto` }, JSON.parse(item.content).choices[0].message.function_call.arguments.explanation),
                   ])
                 )
               ])
