@@ -77,6 +77,16 @@ const formatTime = (time) => {
       self.removeEventListener('touchend', handleMouseUp);
     };
   
+    const handleMouseDown = (event) => {
+      if (event.target.closest('.progress-bar')) {
+        setIsDragging(true);
+        self.addEventListener('mousemove', handleMouseMove);
+        self.addEventListener('mouseup', handleMouseUp);
+        self.addEventListener('touchmove', handleMouseMove);
+        self.addEventListener('touchend', handleMouseUp);
+      }
+    };
+  
     if (audioRef.current) {
       audioRef.current.addEventListener('timeupdate', () => {
         setCurrentTime(Math.floor(audioRef.current.currentTime));
@@ -85,18 +95,10 @@ const formatTime = (time) => {
         setDuration(Math.floor(audioRef.current.duration));
       });
     }
-    
-    // Listen to mousedown on the document for your progress bar
-    document.addEventListener('mousedown', (event) => {
-      if (event.target.closest('.progress-bar')) { // Add a class to your progress bar div
-        setIsDragging(true);
-        self.addEventListener('mousemove', handleMouseMove);
-        self.addEventListener('mouseup', handleMouseUp);
-        self.addEventListener('touchmove', handleMouseMove);
-        self.addEventListener('touchend', handleMouseUp);
-      }
-    });
-    
+  
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('touchstart', handleMouseDown);
+  
     return () => {
       if (audioRef.current) {
         audioRef.current.removeEventListener('timeupdate', () => {});
@@ -106,8 +108,11 @@ const formatTime = (time) => {
       self.removeEventListener('mouseup', handleMouseUp);
       self.removeEventListener('touchmove', handleMouseMove);
       self.removeEventListener('touchend', handleMouseUp);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('touchstart', handleMouseDown);
     };
   }, [isDragging]);
+  
 
   useEffect(() => {
     if (audioUrl && audioRef.current) {
