@@ -34,7 +34,7 @@ export default function TextField({ setFinalResponseText, isLoading, setIsLoadin
     "div", { class: tw`flex flex-col sm:items-center items-start justify-center` }, [
       isLoading ? h("div", {}, "Loading...") : h("form", { onSubmit: handleFormSubmit, class: tw`w-full` }, [
         h( "h1", {
-          class: tw`p-2 text-2xl`
+          class: tw`p-2 text-xl text-center`
         }, "What would you like to learn?"),
         h("textarea", {
           name: "userInput",
@@ -42,15 +42,15 @@ export default function TextField({ setFinalResponseText, isLoading, setIsLoadin
           value: userInput,
           onInput: e => setUserInput(e.target.value),
           rows: "4",
-          class: tw`border-4 border-[#38A1FF] p-2 rounded-xl w-full mb-4 mx-auto shadow-lg focus:outline-none`,
+          class: tw`border-4 border-[#38A1FF] p-2 rounded-xl w-full h-1/4 mx-auto shadow-lg focus:outline-none`,
         }),
         h(CharacterSelection, { setVoiceId }),
         error && h("div", { 
-          class: "rounded-full mt-2 text-sm shadow-sm p-2 m-4 text-red-500 bg-red-200" 
+          class: "rounded-full text-sm shadow-sm text-red-500 bg-red-200" 
         }, error),     
         h("button", { 
           type: "submit", 
-          class: tw`bg-[#38A1FF] hover:bg-[#318BDC] rounded-full px-4 py-2 text-white text-2xl mx-auto block` 
+          class: tw`bg-[#38A1FF] hover:bg-[#318BDC] rounded-full px-4 py-2 text-white text-xl mx-auto block` 
         }, "Generate")
       ])
     ]
