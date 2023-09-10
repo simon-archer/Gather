@@ -69,7 +69,7 @@ export default function UnifiedIsland() {
       !selectedItem && (!finalResponseText || finalResponseText === "") && h(InputField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, handleGenerateContent }),
       showSubjectCard && finalResponseText && h(SubjectCard, { message: selectedItem ? selectedItem : finalResponseText, class: tw`w-auto max-w-xl`}),
       selectedItem && h('div', {}, ''),
-      !selectedItem && h(AudioPlayer, { textToConvert: finalResponseText, textId: textId, setIsLoading }),
+      !selectedItem && h(AudioPlayer, { textToConvert: finalResponseText, textId: textId, setIsLoading, class: tw`w-full` }),
       selectedItem && h(SubjectCard, { message: selectedItem, class: tw`w-auto max-w-xl`}),
     ]),
   ])

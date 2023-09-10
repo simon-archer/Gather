@@ -1,7 +1,7 @@
 import { uuid } from "https://deno.land/x/uuid@v0.1.2/mod.ts";
 import { supabase } from "../../lib/supabase.ts";
 
-const ELEVENLABS_ENDPOINT = "https://api.elevenlabs.io/v1/text-to-speech/";
+const ELEVENLABS_ENDPOINT = "https://api.elevenlabs.io/v2/text-to-speech/";
 const VOICE_ID = Deno.env.get("VOICE_ID");
 const VOICE_API_KEY = Deno.env.get("VOICE_API_KEY");
 
