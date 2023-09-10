@@ -61,7 +61,7 @@ export default function UnifiedIsland() {
     // ]),
     isCollapsed && h("button", { 
       onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); },
-      class: tw`fixed z-10 bottom-0 left-1/2 transform -translate-x-1/2 text-3xl mb-4 bg-[#38A1FF] hover:bg-[#318BDC] text-white font-semibold pt-2 pb-2 pl-4 pr-4 rounded-full shadow-lg`,
+      class: tw`fixed z-10 top-5 right-0 transform -translate-x-1/2 text-3xl mb-4 bg-[#38A1FF] hover:bg-[#318BDC] text-white font-semibold pt-2 pb-2 pl-4 pr-4 rounded-full shadow-lg`,
     }, "+"),
     isCollapsed && h("div", {
       class: tw`flex flex-col items-center justify-center z-0 w-full p-4`
