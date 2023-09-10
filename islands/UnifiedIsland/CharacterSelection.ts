@@ -9,7 +9,7 @@ export default function CharacterSelection({ setVoiceId }) {
     event.preventDefault();
     setLocalVoiceId(id);
     setVoiceId(id);
-    new Audio(`../../audio/${id}.mp3`).play();
+    new Audio(`https://hnshlqzjuzbgckjromvg.supabase.co/storage/v1/object/public/audioFiles/${id}.mp3?t=2023-09-10T11%3A22%3A21.387Z`).play();
   };
 
   return (
