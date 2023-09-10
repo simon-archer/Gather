@@ -31,8 +31,8 @@ export default function TextField({ setFinalResponseText, isLoading, setIsLoadin
   };
 
   return h(
-    "div", { class: tw`flex flex-col sm:items-center items-start justify-center` }, [
-      isLoading ? h("div", {}, "Loading...") : h("form", { onSubmit: handleFormSubmit, class: tw`w-full` }, [
+    "div", { class: tw`flex flex-col items-center justify-center h-screen pb-32` }, [
+      isLoading ? h("div", {}, "Loading...") : h("form", { onSubmit: handleFormSubmit, class: tw`flex flex-col items-center w-full` }, [
         h( "h1", {
           class: tw`p-2 text-xl text-center`
         }, "What would you like to learn?"),
@@ -46,7 +46,7 @@ export default function TextField({ setFinalResponseText, isLoading, setIsLoadin
         }),
         h(CharacterSelection, { setVoiceId }),
         error && h("div", { 
-          class: "rounded-full text-sm shadow-sm text-red-500 bg-red-200" 
+          class: "rounded-full text-sm shadow-sm text-red-500 bg-red-200 mx-auto text-center" 
         }, error),     
         h("button", { 
           type: "submit", 

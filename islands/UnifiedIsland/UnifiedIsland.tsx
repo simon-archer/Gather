@@ -37,7 +37,7 @@ export default function UnifiedIsland() {
     console.log(selectedItem);
   }, [selectedItem]);
 
-  return h("div", { class: tw`flex flex-row min-h-screen pb-64` }, [
+  return h("div", { class: tw`flex flex-row items-center justify-center min-h-screen pb-32` }, [
     // h("div", {
     //   class: tw`relative ${isCollapsed ? 'sm:w-0 w-0 md:w-1/2 lg:w-1/3' : 'w-full'} flex flex-col items-start h-screen overflow-auto border-r border-gray-200`
     // }, [
