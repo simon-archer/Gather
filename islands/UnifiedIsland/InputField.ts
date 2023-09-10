@@ -1,21 +1,24 @@
 import { h } from "preact";
 import { useState } from "preact/hooks";
 import { tw } from "twind";
+import CharacterSelection from "./CharacterSelection.ts";
 
 export default function TextField({ setFinalResponseText, isLoading, setIsLoading, handleGenerateContent }) {
   const [userInput, setUserInput] = useState("");
   const [error, setError] = useState(null);
+  const [voiceId, setVoiceId] = useState(""); 
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    setIsLoading(true);
-    handleGenerateContent(userInput);
+  setIsLoading(true);
+  handleGenerateContent(userInput, voiceId);
     const data = new URLSearchParams();
     data.append("userInput", userInput);
     const response = await fetch('/api/chat', {
       method: 'POST',
       body: data,
     });
+
     const responseData = await response.json();
     if (responseData.error) {
       setError("Was not able to detect learning intention.");
@@ -41,6 +44,7 @@ export default function TextField({ setFinalResponseText, isLoading, setIsLoadin
           rows: "4",
           class: tw`border-4 border-[#38A1FF] p-2 rounded-xl w-full mb-4 mx-auto shadow-lg focus:outline-none`,
         }),
+        h(CharacterSelection, { setVoiceId }),
         error && h("div", { 
           class: "rounded-full mt-2 text-sm shadow-sm p-2 m-4 text-red-500 bg-red-200" 
         }, error),     
