@@ -93,7 +93,7 @@ const formatTime = (time) => {
 
   const progress = (currentTime / duration) * 100;
 
-  return h("div", { class: tw`fixed bottom-8 px-2 flex-col justify-center items-center mt-8 bg-gray-100 rounded-lg shadow-md w-5/6` },
+  return h("div", { class: tw`fixed bottom-8 px-2 flex-col justify-center items-center mt-8 bg-gray-100 rounded-full shadow-md w-5/6` },
   [
     h("div", { class: tw`relative w-full max-w-screen flex flex-col justify-center items-center rounded-lg`,
                style: { maxWidth: '100vw' } },
