@@ -73,6 +73,8 @@ const formatTime = (time) => {
       setIsDragging(false);
       self.removeEventListener('mousemove', handleMouseMove);
       self.removeEventListener('mouseup', handleMouseUp);
+      self.removeEventListener('touchmove', handleMouseMove);
+      self.removeEventListener('touchend', handleMouseUp);
     };
   
     if (audioRef.current) {
@@ -90,9 +92,11 @@ const formatTime = (time) => {
         setIsDragging(true);
         self.addEventListener('mousemove', handleMouseMove);
         self.addEventListener('mouseup', handleMouseUp);
+        self.addEventListener('touchmove', handleMouseMove);
+        self.addEventListener('touchend', handleMouseUp);
       }
     });
-  
+    
     return () => {
       if (audioRef.current) {
         audioRef.current.removeEventListener('timeupdate', () => {});
@@ -100,6 +104,8 @@ const formatTime = (time) => {
       }
       self.removeEventListener('mousemove', handleMouseMove);
       self.removeEventListener('mouseup', handleMouseUp);
+      self.removeEventListener('touchmove', handleMouseMove);
+      self.removeEventListener('touchend', handleMouseUp);
     };
   }, [isDragging]);
 
@@ -150,8 +156,8 @@ const formatTime = (time) => {
   const progress = (currentTime / duration) * 100;
 
   const ReplayButton = () => h("button", { class: tw`bg-[#38A1FF] hover:bg-[#318BDC] text-white rounded-full w-10 h-10 flex justify-center items-center`, onClick: () => handleReplay()}, h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },h("path", { d: "M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" })));
-  const SpeedButton = () => h("button", { class: tw`bg-[#38A1FF] hover:bg-[#318BDC] text-white rounded-full w-20 h-10 flex justify-around items-center`, onClick: () => setSpeedMenuOpen(!speedMenuOpen)}, [h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },h("path", { d: "M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z" }) ),h("span", null, speed + "x")]);
-  const SpeedMenu = () => h("div", { class: tw`absolute bottom-32 bg-[#38A1FF] w-20 flex flex-col rounded-3xl`, ref: speedMenuRef }, ['0.5x', '0.75', '1x', '1.5x', '1.75', '2x'].map(s => h("button", { onClick: () => handleSpeedChange(parseFloat(s)), class: tw`hover:bg-[#318BDC] text-white rounded-full h-10 flex justify-around items-center`}, s)));
+  const SpeedButton = () => h("button", { class: tw`bg-[#38A1FF] hover:bg-[#318BDC] text-white rounded-full w-10 h-10 flex justify-around items-center`, onClick: () => setSpeedMenuOpen(!speedMenuOpen)}, h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },h("path", { d: "M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z" }) ));
+  const SpeedMenu = () => h("div", { class: tw`absolute bottom-32 bg-[#38A1FF] w-10 flex flex-col rounded-3xl`, ref: speedMenuRef }, ['0.5', '0.75', '1', '1.5', '1.75', '2'].map(s => h("button", { onClick: () => handleSpeedChange(parseFloat(s)), class: tw`hover:bg-[#318BDC] text-white rounded-full h-10 flex justify-around items-center`}, s)));
   const PlayButton = () => h("button", { class: tw`bg-[#38A1FF] hover:bg-[#318BDC] text-white rounded-full w-10 h-10 flex justify-around items-center`,onClick: handlePlayPause },h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" }, h("path", { d: isPlaying ? "M6 19h4V5H6v14zm8-14v14h4V5h-4z" : "M8 5v14l11-7z" })));
 
   return h("div", { class: tw`fixed bottom-5 flex flex-col-reverse justify-center px-2 items-center w-full` },
