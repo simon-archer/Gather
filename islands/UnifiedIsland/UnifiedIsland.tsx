@@ -22,10 +22,10 @@ export default function UnifiedIsland() {
     setTextId(id);
   };
 
-  return h("div", { class: tw`flex flex-row items-center justify-center min-h-screen pb-32` }, [
+  return h("div", { class: tw`flex flex-row items-center justify-center min-h-screen` }, [
     isCollapsed && h(Fragment, {}, [
       h("button", {
-        onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); },
+        onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); setAudioBlob(null); },
         class: tw`fixed z-10 top-5 right-0 transform -translate-x-1/2 w-12 h-12 bg-[#38A1FF] hover:bg-[#318BDC] text-white font-semibold flex justify-center items-center rounded-full shadow-lg`,
       }, [
         h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },

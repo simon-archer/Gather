@@ -1,9 +1,5 @@
 const VOICE_API_KEY = Deno.env.get("VOICE_API_KEY") ?? "";
 
-if (!VOICE_API_KEY) {
-  throw new Error("Environment variable VOICE_API_KEY must be set.");
-}
-
 export const handler: Handlers = {
   async POST(req: Request, _ctx: HandlerContext) {
     try {
