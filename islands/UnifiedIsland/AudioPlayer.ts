@@ -2,11 +2,7 @@ import { h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import { tw } from "twind";
 
-export default function AudioPlayer({ textToConvert, textId, setIsLoading }) {
-  const audioRef = useRef(typeof Audio !== 'undefined' ? new Audio() : null);
-  const [audioUrl, setAudioUrl] = useState(
-    'https://hnshlqzjuzbgckjromvg.supabase.co/storage/v1/object/public/audioFiles/AliceExplained.mp3?t=2023-09-10T11%3A54%3A14.827Z'
-  );
+export default function AudioPlayer({ setIsLoading, audioBlob, audioRef }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -15,43 +11,14 @@ export default function AudioPlayer({ textToConvert, textId, setIsLoading }) {
   const [speed, setSpeed] = useState(1);
   const speedMenuRef = useRef(null);
 
+  console.log('AudioPlayer: Initial audioBlob:', audioBlob);
+
  // Utility function to format time
 const formatTime = (time) => {
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 };
-
-  useEffect(() => {
-    if (!textToConvert || !textId) return;
-
-    async function fetchAndSetAudioUrl() {
-      setIsLoading(true);
-      console.log("Generating Audio");
-      try {
-        const body = JSON.stringify({ script: textToConvert, text_id: textId });
-        const response = await fetch("/api/audio", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: body,
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setAudioUrl(data.url);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error("Failed to fetch audio URL:", error);
-      } finally {
-        setIsLoading(false); // Set loading to false after fetching
-      }
-    }
-
-    fetchAndSetAudioUrl();
-  }, [textToConvert, textId]);
 
   const handleSkip = (event) => {
     const rect = event.target.getBoundingClientRect();
@@ -61,6 +28,47 @@ const formatTime = (time) => {
     audioRef.current.currentTime = newTime;
   };
   
+  const handlePlayPause = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+    }
+    setIsPlaying(!isPlaying);
+    console.log("Handling play/pause. Current isPlaying:", isPlaying);
+  };
+
+  const handleSpeedChange = (newSpeed) => {
+    audioRef.current.playbackRate = newSpeed;
+    setSpeed(newSpeed);
+    setSpeedMenuOpen(false);
+  };
+
+  const handleReplay = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0; // Reset audio time to start
+      audioRef.current.play(); // Play the audio
+    }
+    setIsPlaying(true); // Update the isPlaying state
+  };
+
+  const progress = (currentTime / duration) * 100;
+
+  useEffect(() => {
+    if (!(audioBlob instanceof Blob)) {
+      console.warn("Invalid audioBlob");
+      return;
+    }
+  
+    const url = URL.createObjectURL(audioBlob);
+    console.log("Audio URL: ", url);
+    audioRef.current = new Audio(url);
+    setIsLoading(false);
+  
+    console.log("Updated audioBlob: ", audioBlob);
+  }, [audioBlob]);
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -82,16 +90,16 @@ const formatTime = (time) => {
       audioRef.current.addEventListener('loadedmetadata', () => {
         setDuration(Math.floor(audioRef.current.duration));
       });
+  
+      // Listen to mousedown on the document for your progress bar
+      document.addEventListener('mousedown', (event) => {
+        if (event.target.closest('.progress-bar')) { // Add a class to your progress bar div
+          setIsDragging(true);
+          self.addEventListener('mousemove', handleMouseMove);
+          self.addEventListener('mouseup', handleMouseUp);
+        }
+      });
     }
-    
-    // Listen to mousedown on the document for your progress bar
-    document.addEventListener('mousedown', (event) => {
-      if (event.target.closest('.progress-bar')) { // Add a class to your progress bar div
-        setIsDragging(true);
-        self.addEventListener('mousemove', handleMouseMove);
-        self.addEventListener('mouseup', handleMouseUp);
-      }
-    });
   
     return () => {
       if (audioRef.current) {
@@ -101,25 +109,8 @@ const formatTime = (time) => {
       self.removeEventListener('mousemove', handleMouseMove);
       self.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
-
-  useEffect(() => {
-    if (audioUrl && audioRef.current) {
-      audioRef.current.src = audioUrl;
-    }
-  }, [audioUrl]);
-
-  const handlePlayPause = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-    }
-    setIsPlaying(!isPlaying);
-  };
-
+  }, [isDragging, audioRef.current]); // Add audioRef.current to the dependency array
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (speedMenuRef.current && !speedMenuRef.current.contains(event.target)) {
@@ -132,22 +123,6 @@ const formatTime = (time) => {
       self.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
-  const handleSpeedChange = (newSpeed) => {
-    audioRef.current.playbackRate = newSpeed;
-    setSpeed(newSpeed);
-    setSpeedMenuOpen(false);
-  };
-
-  const handleReplay = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0; // Reset audio time to start
-      audioRef.current.play(); // Play the audio
-    }
-    setIsPlaying(true); // Update the isPlaying state
-  };
-
-  const progress = (currentTime / duration) * 100;
 
   const ReplayButton = () => h("button", { class: tw`bg-[#38A1FF] hover:bg-[#318BDC] text-white rounded-full w-10 h-10 flex justify-center items-center shadow-lg`, onClick: () => handleReplay()}, h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },h("path", { d: "M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" })));
   const SpeedButton = () => h("button", { class: tw`bg-[#38A1FF] hover:bg-[#318BDC] text-white rounded-full w-10 h-10 flex justify-around items-center shadow-lg`, onClick: () => setSpeedMenuOpen(!speedMenuOpen)}, h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },h("path", { d: "M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1 10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49-8.49 5.66a2 2 0 0 0 0 2.83z" }) ));

@@ -1,0 +1,99 @@
+{
+  "build_id": "60fd30de845049ed2710f727de61d085f92092af",
+  "files": {
+    "island-unifiedisland_unifiedisland_default.js.map": [],
+    "island-unifiedisland_unifiedisland_default.js": [
+      "chunk-CKP7RPZC.js",
+      "chunk-M3R65FNR.js",
+      "chunk-AML3W27K.js",
+      "chunk-BHE7GTHQ.js",
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "plugin-twind-main.js.map": [],
+    "plugin-twind-main.js": [
+      "chunk-BMKRBKO4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "main.js.map": [],
+    "main.js": [
+      "chunk-4M2GZMYH.js"
+    ],
+    "deserializer.js.map": [],
+    "deserializer.js": [],
+    "signals.js.map": [],
+    "signals.js": [
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "island-unifiedisland_audioplayer_default.js.map": [],
+    "island-unifiedisland_audioplayer_default.js": [
+      "chunk-CKP7RPZC.js",
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-CKP7RPZC.js.map": [],
+    "chunk-CKP7RPZC.js": [
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "island-unifiedisland_characterselection_default.js.map": [],
+    "island-unifiedisland_characterselection_default.js": [
+      "chunk-AML3W27K.js",
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "island-unifiedisland_history_default.js.map": [],
+    "island-unifiedisland_history_default.js": [
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "island-unifiedisland_inputfield_default.js.map": [],
+    "island-unifiedisland_inputfield_default.js": [
+      "chunk-M3R65FNR.js",
+      "chunk-AML3W27K.js",
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-M3R65FNR.js.map": [],
+    "chunk-M3R65FNR.js": [
+      "chunk-AML3W27K.js",
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-AML3W27K.js.map": [],
+    "chunk-AML3W27K.js": [
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "island-unifiedisland_subjectcard_default.js.map": [],
+    "island-unifiedisland_subjectcard_default.js": [
+      "chunk-BHE7GTHQ.js",
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-BHE7GTHQ.js.map": [],
+    "chunk-BHE7GTHQ.js": [
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-BMKRBKO4.js.map": [],
+    "chunk-BMKRBKO4.js": [],
+    "chunk-JEHWBBA4.js.map": [],
+    "chunk-JEHWBBA4.js": [
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-4M2GZMYH.js.map": [],
+    "chunk-4M2GZMYH.js": []
+  }
+}
