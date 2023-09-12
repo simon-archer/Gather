@@ -22,8 +22,8 @@ export const handler: Handlers = {
             text: script,
             model_id: "eleven_multilingual_v2",
             voice_settings: {
-              stability: 0.30,
-              similarity_boost: 0.90,
+              stability: 0.45,
+              similarity_boost: 0.70,
             },
           }),
         },

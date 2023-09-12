@@ -36,13 +36,13 @@ export const handler: Handlers<Data> = {
         },
         { 
           role: "user", 
-          content: "My topic: [" + userInput  + "]. Give me a complete and full answer about the given topic in three or more paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country."
+          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in (in the written language of the topic itself) three or more paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country."
         }
       ],
       functions: [
         {
-          name: 'giveInterestingAnswer',
-          description: 'Give a satisfying answer to the users topic it should not be brief or very short.',
+          name: 'giveInterestingAnswerWithContext',
+          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs.',
           parameters: {
             type: 'object',
             properties: {
@@ -52,11 +52,11 @@ export const handler: Handlers<Data> = {
               },
               explanation: { 
                 type: 'string', 
-                description: 'Give the user a highly interesting and 2 paragraphs answer, by providing context using analogiex, examples, metaphors and fun-facts where suitable. Build a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge they are gaining. Reply in the language of the user input.' 
+                description: 'Give the user a highly interesting and 2 paragraphs answer, by providing context using analogiex, examples, metaphors and fun-facts where suitable. Build a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge they are gaining. Reply in the language of the [ topic ]' 
               },
               keycontents: {
                 type: 'object',
-                description: 'Three key points of the content, to explain to the user what the text is about before they read the text, each capitalized. Always in the user\'s language, but not if they just mention the language or country. Not more than 3-4 words. ',
+                description: 'key points of the content. Always in the [topics] language, Not more than 2-3 words for each key point. ',
                 properties: {
                   keycontent_1: { type: 'string' },
                   keycontent_2: { type: 'string' },
