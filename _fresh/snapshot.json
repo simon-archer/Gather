@@ -1,16 +1,6 @@
 {
-  "build_id": "60fd30de845049ed2710f727de61d085f92092af",
+  "build_id": "e17d44c29e63a38151a60a39a3e2c5179011ef49",
   "files": {
-    "island-unifiedisland_unifiedisland_default.js.map": [],
-    "island-unifiedisland_unifiedisland_default.js": [
-      "chunk-CKP7RPZC.js",
-      "chunk-M3R65FNR.js",
-      "chunk-AML3W27K.js",
-      "chunk-BHE7GTHQ.js",
-      "chunk-BMKRBKO4.js",
-      "chunk-JEHWBBA4.js",
-      "chunk-4M2GZMYH.js"
-    ],
     "plugin-twind-main.js.map": [],
     "plugin-twind-main.js": [
       "chunk-BMKRBKO4.js",
@@ -29,20 +19,7 @@
     ],
     "island-unifiedisland_audioplayer_default.js.map": [],
     "island-unifiedisland_audioplayer_default.js": [
-      "chunk-CKP7RPZC.js",
-      "chunk-BMKRBKO4.js",
-      "chunk-JEHWBBA4.js",
-      "chunk-4M2GZMYH.js"
-    ],
-    "chunk-CKP7RPZC.js.map": [],
-    "chunk-CKP7RPZC.js": [
-      "chunk-BMKRBKO4.js",
-      "chunk-JEHWBBA4.js",
-      "chunk-4M2GZMYH.js"
-    ],
-    "island-unifiedisland_characterselection_default.js.map": [],
-    "island-unifiedisland_characterselection_default.js": [
-      "chunk-AML3W27K.js",
+      "chunk-NZJ7I3BT.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
@@ -55,34 +32,41 @@
     ],
     "island-unifiedisland_inputfield_default.js.map": [],
     "island-unifiedisland_inputfield_default.js": [
-      "chunk-M3R65FNR.js",
-      "chunk-AML3W27K.js",
-      "chunk-BMKRBKO4.js",
-      "chunk-JEHWBBA4.js",
-      "chunk-4M2GZMYH.js"
-    ],
-    "chunk-M3R65FNR.js.map": [],
-    "chunk-M3R65FNR.js": [
-      "chunk-AML3W27K.js",
-      "chunk-BMKRBKO4.js",
-      "chunk-JEHWBBA4.js",
-      "chunk-4M2GZMYH.js"
-    ],
-    "chunk-AML3W27K.js.map": [],
-    "chunk-AML3W27K.js": [
+      "chunk-IBTKV7FT.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
     ],
     "island-unifiedisland_subjectcard_default.js.map": [],
     "island-unifiedisland_subjectcard_default.js": [
-      "chunk-BHE7GTHQ.js",
+      "chunk-2Q6XIYS7.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
     ],
-    "chunk-BHE7GTHQ.js.map": [],
-    "chunk-BHE7GTHQ.js": [
+    "island-unifiedisland_unifiedisland_default.js.map": [],
+    "island-unifiedisland_unifiedisland_default.js": [
+      "chunk-NZJ7I3BT.js",
+      "chunk-IBTKV7FT.js",
+      "chunk-2Q6XIYS7.js",
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-NZJ7I3BT.js.map": [],
+    "chunk-NZJ7I3BT.js": [
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-IBTKV7FT.js.map": [],
+    "chunk-IBTKV7FT.js": [
+      "chunk-BMKRBKO4.js",
+      "chunk-JEHWBBA4.js",
+      "chunk-4M2GZMYH.js"
+    ],
+    "chunk-2Q6XIYS7.js.map": [],
+    "chunk-2Q6XIYS7.js": [
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
