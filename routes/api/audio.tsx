@@ -10,7 +10,7 @@ export const handler: Handlers = {
       console.log("Voice ID" + voiceId);
 
       const response = await fetch(
-        `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=3&output_format=mp3_44100`,
+        `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream?optimize_streaming_latency=2&output_format=mp3_44100`,
         {
           method: "POST",
           headers: {
@@ -22,8 +22,8 @@ export const handler: Handlers = {
             text: script,
             model_id: "eleven_multilingual_v2",
             voice_settings: {
-              stability: 0.35,
-              similarity_boost: 0.5,
+              stability: 0.30,
+              similarity_boost: 0.90,
             },
           }),
         },

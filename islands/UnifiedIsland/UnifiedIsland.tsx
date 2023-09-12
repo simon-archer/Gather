@@ -4,6 +4,8 @@ import { tw } from "twind";
 import InputField from "./InputField.ts";
 import AudioPlayer from "./AudioPlayer.ts";
 import SubjectCard from "./SubjectCard.ts";
+import { getIP } from "https://deno.land/x/get_ip/mod.ts";
+import { insertMetrics } from "../../utils/insertMetrics.ts";
 
 export default function UnifiedIsland() {
   const audioRef = useRef(typeof Audio !== 'undefined' ? new Audio() : null);
@@ -16,6 +18,32 @@ export default function UnifiedIsland() {
   const [userInput, setUserInput] = useState("");
   const [voiceId, setVoiceId] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const [userIp, setUserIp] = useState(null);
+  const [buttonPressCount, setButtonPressCount] = useState(0);
+
+  const getMyIP = async () => {
+    const ip = await getIP({ipv6: true});
+    console.log(`Your public IP is ${ip}`);
+    setUserIp(ip);
+    const metrics = {
+      ip: ip,
+      new: buttonPressCount
+    };
+    
+    // Make a POST request to the insertMetrics endpoint
+    const response = await fetch('/api/insertMetrics', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(metrics)
+    });
+  
+    if (!response.ok) {
+      // Handle error
+      console.error('Failed to insert metrics');
+    }
+  }
 
   useEffect(() => {
     const savedVoiceId = localStorage.getItem('voiceId');
@@ -41,7 +69,7 @@ export default function UnifiedIsland() {
   return h("div", { class: tw`flex flex-row items-center justify-center min-h-screen` }, [
     isCollapsed && h(Fragment, {}, [
       h("button", {
-        onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); setAudioBlob(null); },
+        onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); setAudioBlob(null); setAudioBlob(null);  },
         class: tw`fixed z-10 top-5 right-0 transform -translate-x-1/2 w-12 h-12 bg-[#38A1FF] hover:bg-[#318BDC] text-white font-semibold flex justify-center items-center rounded-full shadow-lg`,
       }, [
         h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },

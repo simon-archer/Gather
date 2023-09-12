@@ -8,9 +8,10 @@ import * as $2 from "./routes/api/audio.tsx";
 import * as $3 from "./routes/api/chat.tsx";
 import * as $4 from "./routes/api/fetchHistory.tsx";
 import * as $5 from "./routes/api/fetchStoredUrl.tsx";
-import * as $6 from "./routes/auth.ts";
-import * as $7 from "./routes/history.ts";
-import * as $8 from "./routes/index.tsx";
+import * as $6 from "./routes/api/insertMetrics.tsx";
+import * as $7 from "./routes/auth.ts";
+import * as $8 from "./routes/history.ts";
+import * as $9 from "./routes/index.tsx";
 import * as $$0 from "./islands/UnifiedIsland/AudioPlayer.ts";
 import * as $$1 from "./islands/UnifiedIsland/History.ts";
 import * as $$2 from "./islands/UnifiedIsland/InputField.ts";
@@ -25,9 +26,10 @@ const manifest = {
     "./routes/api/chat.tsx": $3,
     "./routes/api/fetchHistory.tsx": $4,
     "./routes/api/fetchStoredUrl.tsx": $5,
-    "./routes/auth.ts": $6,
-    "./routes/history.ts": $7,
-    "./routes/index.tsx": $8,
+    "./routes/api/insertMetrics.tsx": $6,
+    "./routes/auth.ts": $7,
+    "./routes/history.ts": $8,
+    "./routes/index.tsx": $9,
   },
   islands: {
     "./islands/UnifiedIsland/AudioPlayer.ts": $$0,

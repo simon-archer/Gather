@@ -1,7 +1,6 @@
 import { Handlers } from "$fresh/server.ts";
 import { OpenAI } from "https://deno.land/x/openai@1.4.2/mod.ts";
 import { insertContent } from "../../utils/insertContent.ts";
-import { supabase } from "../../lib/supabase.ts";
 
 const openAI = new OpenAI(Deno.env.get("OPENAI_API_KEY")!);
 
@@ -19,7 +18,7 @@ export const handler: Handlers<Data> = {
     try {
       await insertContent({
         title: title,
-        keywords: keywordsJson,
+        keyconcepts: keyconceptsJson,
         user_input: userInput,
         full_gpt_response: JSON.stringify(response)
       });
@@ -32,39 +31,41 @@ export const handler: Handlers<Data> = {
       model: "gpt-3.5-turbo",
       messages: [
         {
-          "role": "system",
-          "content":
-            "I'm a personalized tutor that makes learning easy and fun. I promise to guide you through your learning journey with careful consideration for where you're starting from. No fancy jargon or overwhelming details right off the bat. We'll focus on the essentials first, laying a solid foundation you can build on. Think of it like a puzzle; we'll start with the corner pieces and work our way in. And it won't be a dull list of facts; I'll provide context and show you how each piece fits into the larger picture. That way, you can easily add more complex ideas to your understanding as you go. We'll weave this all into a meaningful narrative that helps you not only learn but also appreciate the interconnectedness of the knowledge you're gaining. I will always reply in the language of the user input.",
+          role: "system",
+          content: "I promise to guide you through your learning journey with careful consideration for where you're starting from. No fancy jargon or overwhelming details right off the bat. We'll focus on the essentials first, laying a solid foundation you can build on. Think of it like a puzzle; we'll start with the corner pieces and work our way in. And it won't be a dull list of facts; I'll provide context and show you how each piece fits into the larger picture using examples, analogies, metaphors and fun-facts where suitable. That way, you can easily add more complex ideas to your understanding as you go. We'll weave this all into a meaningful narrative that helps you not only learn but also appreciate the interconnectedness of the knowledge you're gaining. I will always reply in the language of the user input. I'll Deliver a two-paragraph, fun and entertaining answer. Emphasize core concepts, avoiding information overload, but I will offer examples, analogies or fun-facts where suited. My job is to ensure that my explanation offers a foundational schema that's expandable and context-rich. I'll speak naturally, without numbered lists or written-formal structures. I will not have sound descriptors like [cough]. And I will answer in the user's input language."
         },
-        { "role": "user", "content": "Do not repeat instructions in the response or provide a introduction for each topic. Always reply in the language of the user input: " + userInput },
+        { 
+          role: "user", 
+          content: "Guide me through and give me an answer in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating instructions or giving topic introductions. Maintain the language of the user's input, but not if they just mention a language or country: " + userInput 
+        }
       ],
       functions: [
         {
-          name: 'generateEducationalContent',
-          description: 'Answer in one paragraph. Remember these things when answering: Prior Knowledge Gap: Understand that the learner is starting from scratch, and therefore won`t have the vocabulary or conceptual background to understand specialized jargon or complex ideas immediately. Cognitive Load: Try not to overwhelm the learner with too much information at once. Focus on essential elements that will provide a solid foundation. Building Blocks: Recognize that a schema should provide the building blocks of a subject in a way that allows for later complexity. It should be both extensible and flexible. Contextualization: Schemas are more effective if they`re contextualized. A good schema is not just a set of isolated facts but also includes an understanding of how and why these facts are relevant or interconnected. Reply in a spoken manner and dont use any numbered lists or other written structures in your texts. Avoid any descriptors such as [cough]. Always reply in the language of the user input.',
+          name: 'generateFunEducationalContent',
+          description: 'Guide the user through a learning journey with consideration for where they are starting from. No fancy jargon or overwhelming details right off the bat, lay a solid foundation you can build on. Provide context and show you how each piece fits into the larger picture using analogiex, examples, metaphors and fun-facts where suitable. Weave this all into a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge thei are gaining. Reply in the language of the user input.',
           parameters: {
             type: 'object',
             properties: {
               title: { 
-                type: 'string',
-                description: 'This is the title of the topic.' 
+                type: 'string', 
+                description: 'Topic title.' 
               },
               explanation: { 
-                type: 'string',
-                description: 'This explanation of the topic should always be in the same language of the user input.' 
+                type: 'string', 
+                description: 'Explanation, in the user inputs language. but not if they just mention the language or country' 
               },
-              keywords: {
+              keyconcepts: {
                 type: 'object',
-                description: 'These 3 keywords should be very niche to the topic. Each keyword should be capitalized. Always in the language of the user input.' ,
+                description: 'Three highly-specific key points of the content, to explain to the user what the text is about before they read the text, each capitalized. Always in the user\'s language, but not if they just mention the language or country. Not more than 3-4 words. ',
                 properties: {
-                  keyword_1: { type: 'string' },
-                  keyword_2: { type: 'string' },
-                  keyword_3: { type: 'string' },
+                  keyconcept_1: { type: 'string' },
+                  keyconcept_2: { type: 'string' },
+                  keyconcept_3: { type: 'string' },
                 },
-                required: ['keyword_1', 'keyword_2', 'keyword_3']
+                required: ['keyconcept_1', 'keyconcept_2', 'keyconcept_3']
               }
             },
-            required: ['title', 'explanation', 'keywords']
+            required: ['title', 'explanation', 'keyconcepts']
           }
         }
       ],
@@ -99,15 +100,15 @@ export const handler: Handlers<Data> = {
     }
 
     // Extract fields from parsed GPT-3 response
-    const { title, explanation, keywords } = parsedResponse;
+    const { title, explanation, keyconcepts } = parsedResponse;
 
-    // Check if keywords is a JSON object
-    let keywordsJson;
-    if (typeof keywords === "object" && keywords !== null) {
-      keywordsJson = JSON.stringify(keywords);
+    // Check if keyconcepts is a JSON object
+    let keyconceptsJson;
+    if (typeof keyconcepts === "object" && keyconcepts !== null) {
+      keyconceptsJson = JSON.stringify(keyconcepts);
     } else {
-      console.error("Keywords is not a JSON object:", keywords);
-      return new Response(JSON.stringify({ error: "Invalid keywords data" }), {
+      console.error("Keyconcepts is not a JSON object:", keyconcepts);
+      return new Response(JSON.stringify({ error: "Invalid keyconcepts data" }), {
         status: 500,
         headers: { "Content-Type": "application/json" },
       });
@@ -117,7 +118,7 @@ export const handler: Handlers<Data> = {
     try {
       await insertContent({
         title: title,
-        keywords: keywordsJson,
+        keyconcepts: keyconceptsJson,
         user_input: userInput,
         full_gpt_response: JSON.stringify(response)
       });

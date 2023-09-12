@@ -19,7 +19,7 @@ export default function InputField({ setFinalResponseText, isLoading, setIsLoadi
 
     const responseData = await response.json();
     if (responseData.error) {
-      setError("Was not able to detect learning intention.");
+      setError("Was not able to detect curiosity.");
       setTimeout(() => setError(null), 5000);
     } else {
       setFinalResponseText(responseData.message);
@@ -45,15 +45,21 @@ export default function InputField({ setFinalResponseText, isLoading, setIsLoadi
     : h("form", { onSubmit: handleFormSubmit, class: tw`flex flex-col items-center w-full` }, [
         h( "h1", {
           class: tw`py-4 text-xl font-semibold text-center`
-        }, "What would you like to learn?"),
+        }, "What are you wondering about?"),
+        error && h("div", { 
+          class: "rounded-full text-sm shadow-sm p-2 text-red-500 bg-red-200 mx-auto text-center" 
+        }, error),
         h("textarea", {
           name: "userInput",
-          placeholder: "Type in the subject...",
+          placeholder: "ex. Russian mushroom traditions...",
           value: userInput,
           onInput: e => setUserInput(e.target.value),
           rows: "4",
-          class: tw`border-4  border-[#38A1FF] p-2 rounded-xl w-full h-1/4 mx-auto shadow-lg focus:outline-none`,
+          class: tw`border-4  border-[#38A1FF] p-2 rounded-xl w-3/4 h-1/4 mx-auto shadow-lg focus:outline-none`,
         }),
+        h( "p", {
+          class: tw`py-4 text-sm text-grey-400 text-center w-3/4`
+        }, "The more specific your question is, the more specific the answer will be."),
         h( "h1", {
           class: tw`pt-8 text-xl font-semibold text-center`
         }, "Who do you want to listen to?"),
@@ -62,10 +68,7 @@ export default function InputField({ setFinalResponseText, isLoading, setIsLoadi
         h("button", { onClick: (event) => handleButtonClick(event, "CRgVuL7NHLOGdC7AAxb2"), class: voiceId === "CRgVuL7NHLOGdC7AAxb2" ? tw`bg-blue-400 hover:bg-blue-500 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none` : tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none`}, "Cynthia"),
         h("button", { onClick: (event) => handleButtonClick(event, "VTvSgMwVP8qbNLRgV9vE"), class: voiceId === "VTvSgMwVP8qbNLRgV9vE" ? tw`bg-blue-400 hover:bg-blue-500 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none` : tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none`}, "Alice"),
         h("button", { onClick: (event) => handleButtonClick(event, "rU18Fk3uSDhmg5Xh41o4"), class: voiceId === "rU18Fk3uSDhmg5Xh41o4" ? tw`bg-blue-400 hover:bg-blue-500 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none` : tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none`}, "Ryan")
-      ]),
-        error && h("div", { 
-          class: "rounded-full text-sm shadow-sm text-red-500 bg-red-200 mx-auto text-center" 
-        }, error),     
+      ]),     
         h("button", { 
           type: "submit", 
           class: tw`bg-[#38A1FF] hover:bg-[#318BDC] m-8 rounded-full px-4 py-2 text-white text-xl mx-auto block` 
