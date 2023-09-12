@@ -39,19 +39,19 @@ export default function SubjectCard({ message, voiceId, setAudioBlob }) {
 };
 
   return h("div", { 
-    class: tw`flex flex-col mb-8 items-center justify-center bg-white p-4 rounded-lg shadow-lg cursor-pointer p-4 m-4 mx-auto max-w-2xl `
+    class: tw`flex flex-col items-center justify-center p-4 bg-white rounded-lg shadow-lg cursor-pointer m-4 mx-auto max-w-2xl `
   }, [
     h("h1", { class: tw`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-blue-600 text-center` }, title),
-    keycontents && h("div", { class: tw`flex flex-wrap gap-2 mb-4 justify-center flex-wrap` }, 
+    keycontents && isCollapsed && h("div", { class: tw`flex flex-wrap gap-2 mb-4 justify-center font-semibold flex-wrap` }, 
       Object.values(keycontents).map(keycontent => 
-        h("span", { class: tw`bg-white text-gray-700 rounded-full px-2 py-1 text-sm font-semibold` }, keycontent)
+        h("span", { class: tw`bg-white text-gray-700 rounded-full text-sm` }, keycontent)
     )),
-    !isCollapsed && h("p", { class: tw`text-md mb-4 text-gray-700 text-center` }, explanation), // Conditional rendering here
+    !isCollapsed && h("p", { class: tw`text-sm mb-4 text-gray-700 text-center` }, explanation), // Conditional rendering here
     h("div", { class: tw`flex gap-2` }, [
       h("button", { 
           onClick: () => setIsCollapsed(!isCollapsed),
           class: tw`mt-auto text text-sm bg-white text-gray-700 border border-gray-800 p-2 rounded-full opacity-50 focus:outline-none`
-        }, isCollapsed ? "Show Script" : "Hide Script"),
+        }, isCollapsed ? "Show Script" : "Show Keypoints"),
       !isListening && setAudioBlob && h("button", { 
         onClick: handleListen, 
         class: tw`bg-[#38A1FF] hover:bg-[#318BDC] mt-auto text-sm font-semibold text-white border p-2 rounded-full focus:outline-none`

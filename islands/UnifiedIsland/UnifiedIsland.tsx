@@ -66,7 +66,7 @@ export default function UnifiedIsland() {
     setTextId(id);
   };
 
-  return h("div", { class: tw`flex flex-row items-center justify-center min-h-screen` }, [
+  return h("div", { class: tw`flex flex-row items-center justify-center max-h-screen min-h-screen` }, [
     isCollapsed && h(Fragment, {}, [
       h("button", {
         onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); setAudioBlob(null); setAudioBlob(null);  },

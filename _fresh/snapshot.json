@@ -1,5 +1,5 @@
 {
-  "build_id": "03e6523fa517ddec2778d34f0f2c5a3da4e7a0ee",
+  "build_id": "db2fcfc9a4d6eb78162ef609ff0cb84366516120",
   "files": {
     "plugin-twind-main.js.map": [],
     "plugin-twind-main.js": [
@@ -32,14 +32,14 @@
     ],
     "island-unifiedisland_inputfield_default.js.map": [],
     "island-unifiedisland_inputfield_default.js": [
-      "chunk-JHXYH7FS.js",
+      "chunk-CDDRHPKQ.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
     ],
     "island-unifiedisland_subjectcard_default.js.map": [],
     "island-unifiedisland_subjectcard_default.js": [
-      "chunk-7DAAEM5X.js",
+      "chunk-IU7ST2KH.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
@@ -47,8 +47,8 @@
     "island-unifiedisland_unifiedisland_default.js.map": [],
     "island-unifiedisland_unifiedisland_default.js": [
       "chunk-NZJ7I3BT.js",
-      "chunk-JHXYH7FS.js",
-      "chunk-7DAAEM5X.js",
+      "chunk-CDDRHPKQ.js",
+      "chunk-IU7ST2KH.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
@@ -59,14 +59,14 @@
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
     ],
-    "chunk-JHXYH7FS.js.map": [],
-    "chunk-JHXYH7FS.js": [
+    "chunk-CDDRHPKQ.js.map": [],
+    "chunk-CDDRHPKQ.js": [
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
     ],
-    "chunk-7DAAEM5X.js.map": [],
-    "chunk-7DAAEM5X.js": [
+    "chunk-IU7ST2KH.js.map": [],
+    "chunk-IU7ST2KH.js": [
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
