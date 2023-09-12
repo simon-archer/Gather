@@ -18,7 +18,7 @@ export const handler: Handlers<Data> = {
     try {
       await insertContent({
         title: title,
-        keyconcepts: keyconceptsJson,
+        keycontents: keycontentsJson,
         user_input: userInput,
         full_gpt_response: JSON.stringify(response)
       });
@@ -32,40 +32,40 @@ export const handler: Handlers<Data> = {
       messages: [
         {
           role: "system",
-          content: "I promise to guide you through your learning journey with careful consideration for where you're starting from. No fancy jargon or overwhelming details right off the bat. We'll focus on the essentials first, laying a solid foundation you can build on. Think of it like a puzzle; we'll start with the corner pieces and work our way in. And it won't be a dull list of facts; I'll provide context and show you how each piece fits into the larger picture using examples, analogies, metaphors and fun-facts where suitable. That way, you can easily add more complex ideas to your understanding as you go. We'll weave this all into a meaningful narrative that helps you not only learn but also appreciate the interconnectedness of the knowledge you're gaining. I will always reply in the language of the user input. I'll Deliver a two-paragraph, fun and entertaining answer. Emphasize core concepts, avoiding information overload, but I will offer examples, analogies or fun-facts where suited. My job is to ensure that my explanation offers a foundational schema that's expandable and context-rich. I'll speak naturally, without numbered lists or written-formal structures. I will not have sound descriptors like [cough]. And I will answer in the user's input language."
+          content: "I promise to guide you through your exploration of your input with careful consideration for where you're starting from. I'll provide context and show you how each piece fits into the larger picture using examples, analogies, metaphors and fun-facts where suitable. That way, you can easily add more complex ideas to your understanding as you go. We'll weave this all into a meaningful narrative that helps you not only learn but also appreciate the interconnectedness of the knowledge you're gaining. I will always reply in the language of the user input. I'll Deliver a two-paragraph, fun and entertaining answer. Emphasize core contents, avoiding information overload, but I will offer examples, analogies or fun-facts where suited. My job is to ensure that my explanation offers a foundational schema that's expandable and context-rich. I'll speak naturally, without numbered lists or written-formal structures. I will not have sound descriptors like [cough]. And I will answer in the user's input language."
         },
         { 
           role: "user", 
-          content: "Guide me through and give me an answer in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating instructions or giving topic introductions. Maintain the language of the user's input, but not if they just mention a language or country: " + userInput 
+          content: "My topic: [" + userInput  + "]. Give me a complete and full answer about the given topic in three or more paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country."
         }
       ],
       functions: [
         {
-          name: 'generateFunEducationalContent',
-          description: 'Guide the user through a learning journey with consideration for where they are starting from. No fancy jargon or overwhelming details right off the bat, lay a solid foundation you can build on. Provide context and show you how each piece fits into the larger picture using analogiex, examples, metaphors and fun-facts where suitable. Weave this all into a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge thei are gaining. Reply in the language of the user input.',
+          name: 'giveInterestingAnswer',
+          description: 'Give a satisfying answer to the users topic it should not be brief or very short.',
           parameters: {
             type: 'object',
             properties: {
               title: { 
                 type: 'string', 
-                description: 'Topic title.' 
+                description: 'Short but memorable project title. not the same as the user topic.' 
               },
               explanation: { 
                 type: 'string', 
-                description: 'Explanation, in the user inputs language. but not if they just mention the language or country' 
+                description: 'Give the user a highly interesting and 2 paragraphs answer, by providing context using analogiex, examples, metaphors and fun-facts where suitable. Build a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge they are gaining. Reply in the language of the user input.' 
               },
-              keyconcepts: {
+              keycontents: {
                 type: 'object',
-                description: 'Three highly-specific key points of the content, to explain to the user what the text is about before they read the text, each capitalized. Always in the user\'s language, but not if they just mention the language or country. Not more than 3-4 words. ',
+                description: 'Three key points of the content, to explain to the user what the text is about before they read the text, each capitalized. Always in the user\'s language, but not if they just mention the language or country. Not more than 3-4 words. ',
                 properties: {
-                  keyconcept_1: { type: 'string' },
-                  keyconcept_2: { type: 'string' },
-                  keyconcept_3: { type: 'string' },
+                  keycontent_1: { type: 'string' },
+                  keycontent_2: { type: 'string' },
+                  keycontent_3: { type: 'string' },
                 },
-                required: ['keyconcept_1', 'keyconcept_2', 'keyconcept_3']
+                required: ['keycontent_1', 'keycontent_2', 'keycontent_3']
               }
             },
-            required: ['title', 'explanation', 'keyconcepts']
+            required: ['title', 'explanation', 'keycontents']
           }
         }
       ],
@@ -100,15 +100,15 @@ export const handler: Handlers<Data> = {
     }
 
     // Extract fields from parsed GPT-3 response
-    const { title, explanation, keyconcepts } = parsedResponse;
+    const { title, explanation, keycontents } = parsedResponse;
 
-    // Check if keyconcepts is a JSON object
-    let keyconceptsJson;
-    if (typeof keyconcepts === "object" && keyconcepts !== null) {
-      keyconceptsJson = JSON.stringify(keyconcepts);
+    // Check if keycontents is a JSON object
+    let keycontentsJson;
+    if (typeof keycontents === "object" && keycontents !== null) {
+      keycontentsJson = JSON.stringify(keycontents);
     } else {
-      console.error("Keyconcepts is not a JSON object:", keyconcepts);
-      return new Response(JSON.stringify({ error: "Invalid keyconcepts data" }), {
+      console.error("Keycontents is not a JSON object:", keycontents);
+      return new Response(JSON.stringify({ error: "Invalid keycontents data" }), {
         status: 500,
         headers: { "Content-Type": "application/json" },
       });
@@ -118,7 +118,7 @@ export const handler: Handlers<Data> = {
     try {
       await insertContent({
         title: title,
-        keyconcepts: keyconceptsJson,
+        keycontents: keycontentsJson,
         user_input: userInput,
         full_gpt_response: JSON.stringify(response)
       });
