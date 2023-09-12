@@ -142,6 +142,55 @@ html {
   100% { transform: rotate(360deg); }
 }
 
+.spinner {
+  border: 12px solid #f3f3f3;
+  border-top: 12px solid #38A1FF;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  animation: spin 2s linear infinite;
+}
+
+.audio-spinner {
+  border: 12px solid #f3f3f3;
+  border-top: 12px solid #38A1FF;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  animation: audio-spin 2s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes audio-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes change {
+  0% {content: "Fetching Datat";}
+  20% {content: "Creating Title";}
+  40% {content: "Processing Text";}
+  60% {content: "Asking Mom";}
+  80% {content: "Adding Keywords";}
+  100% {content: "Finishing Up";}
+}
+
+.loading-text::after {
+  content: "Loading...";
+  animation: change 10s infinite;
+}
+
+
 .history-scrollbar::-webkit-scrollbar {
   display: none;
 }

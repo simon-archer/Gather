@@ -17,6 +17,22 @@ export default function UnifiedIsland() {
   const [voiceId, setVoiceId] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
+  useEffect(() => {
+    const savedVoiceId = localStorage.getItem('voiceId');
+    if (savedVoiceId) {
+      setVoiceId(JSON.parse(savedVoiceId));
+    }
+  }, []);
+  
+  useEffect(() => {
+    localStorage.setItem('voiceId', JSON.stringify(voiceId));
+    console.log("Set voiceID to Localstorage: " + voiceId)
+  }, [voiceId]);
+  
+  useEffect(() => {
+    console.log("Voice ID: " + voiceId);
+  }, [voiceId]);
+
   const handleTextGenerated = (text, id) => {
     setFinalResponseText({ choices: [{ message: { function_call: { arguments: text } } }] });
     setTextId(id);
@@ -35,10 +51,10 @@ export default function UnifiedIsland() {
       h("div", {
         class: tw`flex flex-col items-center justify-center z-0 w-full p-4`
       }, [
-        !selectedItem && (!finalResponseText || finalResponseText === "") && h(InputField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, setVoiceId }),
+        !selectedItem && (!finalResponseText || finalResponseText === "") && h(InputField, { setFinalResponseText: handleTextGenerated, isLoading, setIsLoading, voiceId, setVoiceId }),
           showSubjectCard && finalResponseText && h(SubjectCard, { 
             message: selectedItem || finalResponseText, 
-            setAudioBlob: setAudioBlob, // directly pass the setAudioBlob function
+            setAudioBlob: setAudioBlob,
             userInput, 
             voiceId, 
             class: tw`w-auto max-w-xl` 

@@ -1,8 +1,8 @@
-import { h } from "preact";
-import { useState } from "preact/hooks";
+import { h, Fragment } from "preact";
+import { useState} from "preact/hooks";
 import { tw } from "twind";
 
-export default function InputField({ setFinalResponseText, isLoading, setIsLoading, setVoiceId }) {
+export default function InputField({ setFinalResponseText, isLoading, setIsLoading, voiceId, setVoiceId }) {
   const [userInput, setUserInput] = useState("");
   const [error, setError] = useState(null);
 
@@ -31,13 +31,18 @@ export default function InputField({ setFinalResponseText, isLoading, setIsLoadi
   const handleButtonClick = (event, id: string) => { // Add this function
     event.preventDefault();
     setVoiceId(id);
-    console.log("Input Field: Set Voice ID: " + id);
+    console.log("Button Highlighted " + id);
     new Audio(`https://hnshlqzjuzbgckjromvg.supabase.co/storage/v1/object/public/audioFiles/${id}.mp3?t=2023-09-10T11%3A22%3A21.387Z`).play();
   };
 
   return h(
     "div", { class: tw`flex flex-col items-center justify-center h-screen` }, [
-      isLoading ? h("div", {}, "Loading...") : h("form", { onSubmit: handleFormSubmit, class: tw`flex flex-col items-center w-full` }, [
+      isLoading ? 
+      h(Fragment, {}, [
+        h("div", { class: tw`text-sm loading-text bg-white border-2 border-black shadow-lg rounded-full py-2 px-4 m-8 font-semibold text-center` }),
+        h("div", { class: tw`spinner` }),
+      ]) 
+    : h("form", { onSubmit: handleFormSubmit, class: tw`flex flex-col items-center w-full` }, [
         h( "h1", {
           class: tw`py-4 text-xl font-semibold text-center`
         }, "What would you like to learn?"),
@@ -53,10 +58,10 @@ export default function InputField({ setFinalResponseText, isLoading, setIsLoadi
           class: tw`pt-8 text-xl font-semibold text-center`
         }, "Who do you want to listen to?"),
         h("div", { class: tw` py-4 flex flex-wrap justify-center items-center` }, [
-        h("button", { onClick: (event) => handleButtonClick(event, "9dSY1SPd1tIQimc1vGkV"), class: tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1` }, "Bosco"),
-        h("button", { onClick: (event) => handleButtonClick(event, "CRgVuL7NHLOGdC7AAxb2"), class: tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1` }, "Cynthia"),
-        h("button", { onClick: (event) => handleButtonClick(event, "VTvSgMwVP8qbNLRgV9vE"), class: tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1` }, "Alice"),
-        h("button", { onClick: (event) => handleButtonClick(event, "rU18Fk3uSDhmg5Xh41o4"), class: tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1` }, "Ryan")
+        h("button", { onClick: (event) => handleButtonClick(event, "9dSY1SPd1tIQimc1vGkV"), class: voiceId === "9dSY1SPd1tIQimc1vGkV" ? tw`bg-blue-400 hover:bg-blue-500 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none` : tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none`}, "Bosco"),
+        h("button", { onClick: (event) => handleButtonClick(event, "CRgVuL7NHLOGdC7AAxb2"), class: voiceId === "CRgVuL7NHLOGdC7AAxb2" ? tw`bg-blue-400 hover:bg-blue-500 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none` : tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none`}, "Cynthia"),
+        h("button", { onClick: (event) => handleButtonClick(event, "VTvSgMwVP8qbNLRgV9vE"), class: voiceId === "VTvSgMwVP8qbNLRgV9vE" ? tw`bg-blue-400 hover:bg-blue-500 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none` : tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none`}, "Alice"),
+        h("button", { onClick: (event) => handleButtonClick(event, "rU18Fk3uSDhmg5Xh41o4"), class: voiceId === "rU18Fk3uSDhmg5Xh41o4" ? tw`bg-blue-400 hover:bg-blue-500 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none` : tw`bg-gray-200 hover:bg-gray-400 rounded-full p-2 text-black text-sm mx-2 my-1 focus:outline-none`}, "Ryan")
       ]),
         error && h("div", { 
           class: "rounded-full text-sm shadow-sm text-red-500 bg-red-200 mx-auto text-center" 

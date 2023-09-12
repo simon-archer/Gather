@@ -14,11 +14,13 @@ export default function SubjectCard({ message, voiceId, setAudioBlob }) {
   const { title, explanation, keywords } = data;
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   console.log("Title: " + title)
   console.log("Explanation: " + explanation)
 
   const handleListen = async () => {
     setIsLoading(true);
+    setIsListening(true);
     const textToConvert = `${title}. ${explanation}`;
     const response = await fetch(`/api/audio`, {
       method: 'POST',
@@ -31,6 +33,7 @@ export default function SubjectCard({ message, voiceId, setAudioBlob }) {
     console.log('Blob:', blob);
     setAudioBlob(blob);
     setIsLoading(false);
+    setIsListening(false);
     return blob;
   }
 };
@@ -49,10 +52,11 @@ export default function SubjectCard({ message, voiceId, setAudioBlob }) {
           onClick: () => setIsCollapsed(!isCollapsed),
           class: tw`mt-auto text-sm bg-gray-200 text-gray-500 border border-gray-700 p-2 rounded-full opacity-50 focus:outline-none`
         }, isCollapsed ? "Show Text" : "Hide Text"),
-      h("button", { 
+      !isListening && h("button", { 
         onClick: handleListen, 
         class: tw`bg-[#38A1FF] hover:bg-[#318BDC] mt-auto text-sm font-semibold text-white border p-2 rounded-full focus:outline-none`
       }, isLoading ? "Loading..." : "Listen" ),
+      isListening && h("div", { class: tw`audio-spinner absolute bottom-10 left-1/2 transform p-4 text-center` }),
     ]),
   ]);
 }
