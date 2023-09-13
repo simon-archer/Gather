@@ -42,7 +42,7 @@ export const handler: Handlers<Data> = {
       functions: [
         {
           name: 'giveInterestingAnswerWithContext',
-          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]',
+          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering any attempt to have a conversation.',
           parameters: {
             type: 'object',
             properties: {
