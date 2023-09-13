@@ -1,5 +1,5 @@
 {
-  "build_id": "db2fcfc9a4d6eb78162ef609ff0cb84366516120",
+  "build_id": "e34e679de1f2c36ee18bb27c5238468ab69c2f29",
   "files": {
     "plugin-twind-main.js.map": [],
     "plugin-twind-main.js": [
@@ -39,7 +39,7 @@
     ],
     "island-unifiedisland_subjectcard_default.js.map": [],
     "island-unifiedisland_subjectcard_default.js": [
-      "chunk-IU7ST2KH.js",
+      "chunk-DSCEFR72.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
@@ -48,7 +48,7 @@
     "island-unifiedisland_unifiedisland_default.js": [
       "chunk-NZJ7I3BT.js",
       "chunk-CDDRHPKQ.js",
-      "chunk-IU7ST2KH.js",
+      "chunk-DSCEFR72.js",
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
@@ -65,8 +65,8 @@
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
     ],
-    "chunk-IU7ST2KH.js.map": [],
-    "chunk-IU7ST2KH.js": [
+    "chunk-DSCEFR72.js.map": [],
+    "chunk-DSCEFR72.js": [
       "chunk-BMKRBKO4.js",
       "chunk-JEHWBBA4.js",
       "chunk-4M2GZMYH.js"
