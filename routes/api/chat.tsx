@@ -36,13 +36,13 @@ export const handler: Handlers<Data> = {
         },
         { 
           role: "user", 
-          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country. Always in the written language of my topic: [ " +  userInput + " ]"
+          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country. Always in the written language of my topic: [ " +  userInput + " ].  Avoid answering if there is a generic word or sentence like \"how are you doing\" or \"hey\"."
         }
       ],
       functions: [
         {
           name: 'giveInterestingAnswerWithContext',
-          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering any attempt to have a conversation.',
+          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering if there is a generic word or sentence like "how are you doing" or "hey".',
           parameters: {
             type: 'object',
             properties: {
