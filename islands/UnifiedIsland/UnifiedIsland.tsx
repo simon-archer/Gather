@@ -20,8 +20,11 @@ export default function UnifiedIsland() {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [userIp, setUserIp] = useState(null);
   const [clickedNew, setClickedNew] = useState(() => {
-    const savedClickedNew = localStorage.getItem('clickedNew');
-    return savedClickedNew ? JSON.parse(savedClickedNew) : false;
+    if (typeof self !== 'undefined') {
+      const savedClickedNew = localStorage.getItem('clickedNew');
+      return savedClickedNew ? JSON.parse(savedClickedNew) : false;
+    }
+    return false;
   });
 
   const getMyIP = async () => {
