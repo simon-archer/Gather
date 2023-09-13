@@ -19,14 +19,8 @@ export default function UnifiedIsland() {
   const [voiceId, setVoiceId] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [userIp, setUserIp] = useState(null);
-  const [clickedNew, setClickedNew] = useState(() => {
-    if (typeof self !== 'undefined') {
-      const savedClickedNew = localStorage.getItem('clickedNew');
-      return savedClickedNew ? JSON.parse(savedClickedNew) : false;
-    }
-    return false;
-  });
-
+  const [clickedNew, setClickedNew] = useState();
+  
   const getMyIP = async () => {
     const ip = await getIP({ipv6: true});
     console.log(`Your public IP is ${ip}`);
@@ -57,6 +51,13 @@ export default function UnifiedIsland() {
       setVoiceId(JSON.parse(savedVoiceId));
     }
   }, []);
+
+  useEffect(() => {
+  if (typeof self !== 'undefined') {
+    const savedClickedNew = localStorage.getItem('clickedNew');
+    setClickedNew(savedClickedNew ? JSON.parse(savedClickedNew) : false);
+  }
+}, []);
 
   useEffect(() => {
     localStorage.setItem('clickedNew', JSON.stringify(clickedNew));
