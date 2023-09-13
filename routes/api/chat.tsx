@@ -36,27 +36,27 @@ export const handler: Handlers<Data> = {
         },
         { 
           role: "user", 
-          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in (in the written language of the topic itself) three or more paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country."
+          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country. Always in the written language of my topic: [ " +  userInput + " ]"
         }
       ],
       functions: [
         {
           name: 'giveInterestingAnswerWithContext',
-          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs.',
+          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]',
           parameters: {
             type: 'object',
             properties: {
               title: { 
                 type: 'string', 
-                description: 'Short but memorable project title. not the same as the user topic.' 
+                description: 'Short but memorable project title. not the same as the user topic. Always in the language Of the My topic: [ topic ]' 
               },
               explanation: { 
                 type: 'string', 
-                description: 'Give the user a highly interesting and 2 paragraphs answer, by providing context using analogiex, examples, metaphors and fun-facts where suitable. Build a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge they are gaining. Reply in the language of the [ topic ]' 
+                description: 'Give the user a highly interesting and 2 paragraphs answer, by providing context using analogiex, examples, metaphors and fun-facts where suitable. Build a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge they are gaining. Always in the language Of the My topic: [ topic ].' 
               },
               keycontents: {
                 type: 'object',
-                description: 'key points of the content. Always in the [topics] language, Not more than 2-3 words for each key point. ',
+                description: '3 key points of the content. Always in the language Of the My topic: [ topic ]. Only 2-3 words for each key point. ',
                 properties: {
                   keycontent_1: { type: 'string' },
                   keycontent_2: { type: 'string' },

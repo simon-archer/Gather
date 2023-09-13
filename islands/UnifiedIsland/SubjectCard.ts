@@ -44,7 +44,7 @@ export default function SubjectCard({ message, voiceId, setAudioBlob }) {
     h("h1", { class: tw`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-blue-600 text-center` }, title),
     keycontents && isCollapsed && h("div", { class: tw`flex flex-wrap gap-2 mb-4 justify-center font-semibold flex-wrap` }, 
       Object.values(keycontents).map(keycontent => 
-        h("span", { class: tw`bg-white text-gray-700 rounded-full text-sm` }, keycontent)
+        h("span", { class: tw`bg-white text-gray-700 rounded-full text-sm` }, " • " + keycontent)
     )),
     !isCollapsed && h("p", { class: tw`text-sm mb-4 text-gray-700 text-center` }, explanation), // Conditional rendering here
     h("div", { class: tw`flex gap-2` }, [
