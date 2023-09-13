@@ -57,6 +57,7 @@ export default function SubjectCard({ message, voiceId, setAudioBlob }) {
         class: tw`bg-[#38A1FF] hover:bg-[#318BDC] mt-auto text-sm font-semibold text-white border p-2 rounded-full focus:outline-none`
       }, isLoading ? "Loading..." : "Listen" ),
       isListening && h("div", { class: tw`audio-spinner absolute bottom-10 left-1/2 transform p-4 text-center` }),
+      isLoading && h("p", { class: tw`absolute bottom-5 left-1/2 -translate-x-1/2 text-center mt-auto text-sm font-semibold text-black p-2 focus:outline-none w-full`}, "This could take up to 1 minute"),
     ]),
   ]);
 }
