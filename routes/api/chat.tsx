@@ -41,8 +41,8 @@ export const handler: Handlers<Data> = {
       ],
       functions: [
         {
-          name: 'giveInterestingAnswerWithContext',
-          description: 'Give a satisfying answer to the users topic it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering if there is a generic word or sentence like "how are you doing" or "hey".',
+          name: 'giveEducationalAnswerWithContext',
+          description: 'Do not call function if there is not learning or curiosity intention. Give a satisfying answer to the users topic, it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering if there is a generic word or sentence like "how are you doing" or "hey".',
           parameters: {
             type: 'object',
             properties: {

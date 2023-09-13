@@ -19,7 +19,10 @@ export default function UnifiedIsland() {
   const [voiceId, setVoiceId] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [userIp, setUserIp] = useState(null);
-  const [buttonPressCount, setButtonPressCount] = useState(0);
+  const [clickedNew, setClickedNew] = useState(() => {
+    const savedClickedNew = localStorage.getItem('clickedNew');
+    return savedClickedNew ? JSON.parse(savedClickedNew) : false;
+  });
 
   const getMyIP = async () => {
     const ip = await getIP({ipv6: true});
@@ -51,6 +54,11 @@ export default function UnifiedIsland() {
       setVoiceId(JSON.parse(savedVoiceId));
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('clickedNew', JSON.stringify(clickedNew));
+    console.log("Set clickedNew to Localstorage: " + clickedNew)
+  }, [clickedNew]);
   
   useEffect(() => {
     localStorage.setItem('voiceId', JSON.stringify(voiceId));
@@ -68,14 +76,20 @@ export default function UnifiedIsland() {
 
   return h("div", { class: tw`flex flex-row items-center justify-center max-h-screen min-h-screen` }, [
     isCollapsed && h(Fragment, {}, [
-      h("button", {
-        onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); setAudioBlob(null); setAudioBlob(null);  },
+      finalResponseText && h("button", {
+        onClick: () => { setFinalResponseText(""); setSelectedItem(null); setShowSubjectCard(true); setAudioBlob(null); setAudioBlob(null); setClickedNew(true);  },
         class: tw`fixed z-10 top-5 right-0 transform -translate-x-1/2 w-12 h-12 bg-[#38A1FF] hover:bg-[#318BDC] text-white font-semibold flex justify-center items-center rounded-full shadow-lg`,
       }, [
         h("svg", { class: tw`fill-current text-white`, width: "24", height: "24" },
           h("path", { d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" })
         )
       ]),
+      clickedNew && !isLoading && (!selectedItem && (!finalResponseText || finalResponseText === "")) && h("a", {
+        href: "https://forms.gle/453jz6DsTpaQMs6Q6",
+        class: tw`fixed z-10 top-0 left-1/2 transform -translate-x-1/2 mt-4 bg-orange-400 hover:bg-orange-500 text-white font-semibold py-2 px-4 rounded-full`,
+        target: "_blank",
+        rel: "noopener noreferrer"
+      }, "Give Feedback"),
       h("div", {
         class: tw`flex flex-col items-center justify-center z-0 w-full p-4`
       }, [

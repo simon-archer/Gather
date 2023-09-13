@@ -19,7 +19,7 @@ export default function InputField({ setFinalResponseText, isLoading, setIsLoadi
 
     const responseData = await response.json();
     if (responseData.error) {
-      setError("Was not able to detect curiosity.");
+      setError("Was not able to detect what to wonder about.");
       setTimeout(() => setError(null), 5000);
     } else {
       setFinalResponseText(responseData.message);
@@ -46,8 +46,8 @@ export default function InputField({ setFinalResponseText, isLoading, setIsLoadi
         h( "h1", {
           class: tw`py-4 text-xl font-semibold text-center`
         }, "What are you wondering about?"),
-        error && h("div", { 
-          class: "rounded-full text-sm shadow-sm p-2 text-red-500 bg-red-200 mx-auto text-center" 
+        error &&  h("div", { 
+          class: "rounded-full text-sm shadow-sm p-2 mb-4 text-red-500 bg-red-200 mx-auto text-center" 
         }, error),
         h("textarea", {
           name: "userInput",

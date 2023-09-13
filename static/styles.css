@@ -187,7 +187,7 @@ html {
 
 .loading-text::after {
   content: "Loading...";
-  animation: change 10s infinite;
+  animation: change 15s infinite;
 }
 
 
