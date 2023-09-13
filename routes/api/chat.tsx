@@ -56,7 +56,7 @@ export const handler: Handlers<Data> = {
               },
               keycontents: {
                 type: 'object',
-                description: '3 key points of the content. Always in the language Of the My topic: [ topic ]. Only 2-3 words for each key point. ',
+                description: 'short points of the content, should not include repeating information from the title. Always in the language Of the My topic: [ topic ]. They should be trimmed and 2-3 words, NOT LONGER!',
                 properties: {
                   keycontent_1: { type: 'string' },
                   keycontent_2: { type: 'string' },

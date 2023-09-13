@@ -16,7 +16,7 @@ export default function UnifiedIsland() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showSubjectCard, setShowSubjectCard] = useState(true);
   const [userInput, setUserInput] = useState("");
-  const [voiceId, setVoiceId] = useState("");
+  const [voiceId, setVoiceId] = useState("9dSY1SPd1tIQimc1vGkV");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [userIp, setUserIp] = useState(null);
   const [clickedNew, setClickedNew] = useState();

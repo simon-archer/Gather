@@ -65,9 +65,21 @@ const formatTime = (time) => {
     const url = URL.createObjectURL(audioBlob);
     console.log("Audio URL: ", url);
     audioRef.current = new Audio(url);
-    setIsLoading(false);
+  
+    // Listen for the canplaythrough event
+    const handleCanPlayThrough = () => {
+      setIsLoading(false);
+    };
+    audioRef.current.addEventListener('canplaythrough', handleCanPlayThrough);
   
     console.log("Updated audioBlob: ", audioBlob);
+  
+    // Cleanup function
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('canplaythrough', handleCanPlayThrough);
+      }
+    };
   }, [audioBlob]);
 
   useEffect(() => {
