@@ -28,7 +28,7 @@ export const handler: Handlers<Data> = {
     }
 
     const requestPayload = ({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4-1106-preview",
       messages: [
         {
           role: "system",
