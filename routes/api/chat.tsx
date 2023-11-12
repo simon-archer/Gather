@@ -32,27 +32,27 @@ export const handler: Handlers<Data> = {
       messages: [
         {
           role: "system",
-          content: "I promise to guide you through your exploration of your input with careful consideration for where you're starting from. I'll provide context and show you how each piece fits into the larger picture using examples, analogies, metaphors and fun-facts where suitable. That way, you can easily add more complex ideas to your understanding as you go. We'll weave this all into a meaningful narrative that helps you not only learn but also appreciate the interconnectedness of the knowledge you're gaining. I will always reply in the language of the user input. I'll Deliver a two-paragraph, fun and entertaining answer. Emphasize core contents, avoiding information overload, but I will offer examples, analogies or fun-facts where suited. My job is to ensure that my explanation offers a foundational schema that's expandable and context-rich. I'll speak naturally, without numbered lists or written-formal structures. I will not have sound descriptors like [cough]. And I will answer in the user's input language. I will make sure to praise your curiosity."
+          content: "I promise to guide you through your exploration of your input with careful consideration for where you're starting from. I'll provide context and show you how each piece fits into the larger picture using suitable methods where useful, like examples, analogies, metaphors and fun-facts. That way, you can easily add more complex ideas to your understanding as you go. We'll combine it into a meaningful paragraph that helps you not only learn but also appreciate the interconnectedness of the knowledge you're gaining. I will always reply in english. My job is to ensure that my explanation offers a foundational schema that's expandable and context-rich. I'll speak naturally, without numbered lists or written-formal structures. I will not have sound descriptors like [cough]. I will make sure to praise your curiosity."
         },
         { 
           role: "user", 
-          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable (but make it simple). Remember to explain any domain specific words, or new terms or concepts. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country. Always in the written language of my topic: [ " +  userInput + " ].  Avoid answering if there is a generic word or sentence like \"how are you doing\" or \"hey\". You should always say something that makes me happy that I showed interest and was curious."
+          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in two paragraphs that satisfies my curiosity. Prioritize simplicity. The answer could, but is not required to, include examples, analogies, fun-facts or metaphors where suitable (but make it simple). Remember to explain any domain specific words, or new terms or concepts. Skip repeating my instructions or introductions. Avoid answering if there is a generic word or sentence like \"how are you doing\" or \"hey\". You should always say something that makes the user happy that they showed interest and was curious."
         }
       ],
       functions: [
         {
           name: 'giveEducationalAnswerWithContext',
-          description: 'Make sure to praise the curiosity of the user somehow in an authentic way. Do not call function if there is no learning or curiosity intention. Give a satisfying answer to the users topic, it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering if there is a generic word or sentence like "how are you doing" or "hey".',
+          description: 'Make sure to praise the curiosity of the user in an authentic way, by mentioning why their question or topic might be intersting. Do not call function if there is no learning or curiosity intention. Give a satisfying answer to the users topic, it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering if there is a generic word or sentence like "how are you doing" or "hey".',
           parameters: {
             type: 'object',
             properties: {
               title: { 
                 type: 'string', 
-                description: 'Short but memorable project title. not the same as the user topic. Always in the language Of the My topic: [ topic ]' 
+                description: 'Short but memorable project title. not the same as the user topic.' 
               },
               explanation: { 
                 type: 'string', 
-                description: 'Give the user a highly interesting and 2 paragraphs answer, by providing context using analogiex, examples, metaphors and fun-facts where suitable. Build a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge they are gaining. Always in the language Of the My topic: [ topic ].' 
+                description: 'Give the user a highly interesting and 2 paragraphs answer. Build a meaningful narrative that helps you the user learn but also appreciate the interconnectedness of the knowledge they are gaining. Always in the language Of the My topic: [ topic ].' 
               },
               keycontents: {
                 type: 'object',
