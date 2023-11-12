@@ -36,13 +36,13 @@ export const handler: Handlers<Data> = {
         },
         { 
           role: "user", 
-          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable. Remember to explain any domain specific words, or new terms or concepts. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country. Always in the written language of my topic: [ " +  userInput + " ].  Avoid answering if there is a generic word or sentence like \"how are you doing\" or \"hey\". You should always say something that makes me happy that I showed interest and was curious."
+          content: "My topic: [" + userInput  + "]. Give me a 2 paragraphs answer about the given topic in two paragraphs that satisfies my curiosity, it could include examples, analogies, fun-facts or metaphors where suitable (but make it simple). Remember to explain any domain specific words, or new terms or concepts. Skip repeating my instructions or introductions. Answer in the language of the my input, but not if I just mention a language or country. Always in the written language of my topic: [ " +  userInput + " ].  Avoid answering if there is a generic word or sentence like \"how are you doing\" or \"hey\". You should always say something that makes me happy that I showed interest and was curious."
         }
       ],
       functions: [
         {
           name: 'giveEducationalAnswerWithContext',
-          description: 'Make sure to praise the curiosity of the user somehow in an authentic way. Do not call function if there is not learning or curiosity intention. Give a satisfying answer to the users topic, it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering if there is a generic word or sentence like "how are you doing" or "hey".',
+          description: 'Make sure to praise the curiosity of the user somehow in an authentic way. Do not call function if there is no learning or curiosity intention. Give a satisfying answer to the users topic, it should be about 2 pragraphs. Always in the language Of the My topic: [ topic ]. Avoid answering if there is a generic word or sentence like "how are you doing" or "hey".',
           parameters: {
             type: 'object',
             properties: {
